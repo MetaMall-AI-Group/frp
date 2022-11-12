@@ -8,14 +8,14 @@ import (
 )
 
 type JwtConfig struct {
-	JwtKey string `json:"jwt_key"`
-	Token  string `json:"token"`
+	JwtKey   string `json:"jwt_key"`
+	JwtToken string `json:"token"`
 }
 
 func getDefaultJwtConf() JwtConfig {
 	return JwtConfig{
-		Token:  "",
-		JwtKey: "",
+		JwtToken: "",
+		JwtKey:   "",
 	}
 }
 
@@ -30,6 +30,7 @@ func NewJwtAuth(baseCfg BaseConfig, cfg JwtConfig) *JwtAuthSetterVerifier {
 	return &JwtAuthSetterVerifier{
 		BaseConfig: baseCfg,
 		key:        cfg.JwtKey,
+		token:      cfg.JwtToken,
 	}
 }
 

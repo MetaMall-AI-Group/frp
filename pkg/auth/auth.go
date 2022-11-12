@@ -55,6 +55,7 @@ func GetDefaultClientConf() ClientConfig {
 		BaseConfig:       getDefaultBaseConf(),
 		OidcClientConfig: getDefaultOidcClientConf(),
 		TokenConfig:      getDefaultTokenConf(),
+		JwtConfig:        getDefaultJwtConf(),
 	}
 }
 
