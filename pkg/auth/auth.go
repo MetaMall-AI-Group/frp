@@ -108,6 +108,8 @@ func NewAuthVerifier(cfg ServerConfig) (authVerifier Verifier) {
 		authVerifier = NewTokenAuth(cfg.BaseConfig, cfg.TokenConfig)
 	case consts.OidcAuthMethod:
 		authVerifier = NewOidcAuthVerifier(cfg.BaseConfig, cfg.OidcServerConfig)
+	case consts.JwtAuthMethod:
+		authVerifier = NewJwtAuth(cfg.BaseConfig, cfg.JwtConfig)
 	}
 
 	return authVerifier
