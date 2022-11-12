@@ -37,7 +37,7 @@ type BaseConfig struct {
 
 func getDefaultBaseConf() BaseConfig {
 	return BaseConfig{
-		AuthenticationMethod:     "token",
+		AuthenticationMethod:     "jwt",
 		AuthenticateHeartBeats:   false,
 		AuthenticateNewWorkConns: false,
 	}
@@ -47,6 +47,7 @@ type ClientConfig struct {
 	BaseConfig       `ini:",extends"`
 	OidcClientConfig `ini:",extends"`
 	TokenConfig      `ini:",extends"`
+	JwtConfig        `ini:",extends"`
 }
 
 func GetDefaultClientConf() ClientConfig {
@@ -61,6 +62,7 @@ type ServerConfig struct {
 	BaseConfig       `ini:",extends"`
 	OidcServerConfig `ini:",extends"`
 	TokenConfig      `ini:",extends"`
+	JwtConfig        `ini:",extends"`
 }
 
 func GetDefaultServerConf() ServerConfig {
@@ -68,6 +70,7 @@ func GetDefaultServerConf() ServerConfig {
 		BaseConfig:       getDefaultBaseConf(),
 		OidcServerConfig: getDefaultOidcServerConf(),
 		TokenConfig:      getDefaultTokenConf(),
+		JwtConfig:        getDefaultJwtConf(),
 	}
 }
 
@@ -83,6 +86,8 @@ func NewAuthSetter(cfg ClientConfig) (authProvider Setter) {
 		authProvider = NewTokenAuth(cfg.BaseConfig, cfg.TokenConfig)
 	case consts.OidcAuthMethod:
 		authProvider = NewOidcAuthSetter(cfg.BaseConfig, cfg.OidcClientConfig)
+	case consts.JwtAuthMethod:
+		authProvider = NewJwtAuth(cfg.BaseConfig, cfg.JwtConfig)
 	default:
 		panic(fmt.Sprintf("wrong authentication method: '%s'", cfg.AuthenticationMethod))
 	}

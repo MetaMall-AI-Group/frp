@@ -12,6 +12,13 @@ type JwtConfig struct {
 	Token  string `json:"token"`
 }
 
+func getDefaultJwtConf() JwtConfig {
+	return JwtConfig{
+		Token:  "",
+		JwtKey: "",
+	}
+}
+
 type JwtAuthSetterVerifier struct {
 	BaseConfig
 
