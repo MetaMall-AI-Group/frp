@@ -7,15 +7,23 @@ import (
 	"github.com/gbrlsnchs/jwt/v3"
 )
 
-type JwtConfig struct {
-	JwtKey   string `json:"jwt_key"`
-	JwtToken string `json:"token"`
+type ServerJwtConfig struct {
+	JwtKey string `ini:"jwt_key" json:"jwt_key"`
 }
 
-func getDefaultJwtConf() JwtConfig {
-	return JwtConfig{
-		JwtToken: "",
-		JwtKey:   "",
+type ClientJwtConfig struct {
+	Token string `ini:"token" json:"token"`
+}
+
+func getDefaultClientJwtConf() ClientJwtConfig {
+	return ClientJwtConfig{
+		Token: "",
+	}
+}
+
+func getDefaultServerJwtConf() ServerJwtConfig {
+	return ServerJwtConfig{
+		JwtKey: "",
 	}
 }
 
@@ -26,11 +34,17 @@ type JwtAuthSetterVerifier struct {
 	token string
 }
 
-func NewJwtAuth(baseCfg BaseConfig, cfg JwtConfig) *JwtAuthSetterVerifier {
+func NewServerJwtAuth(baseCfg BaseConfig, cfg ServerJwtConfig) *JwtAuthSetterVerifier {
 	return &JwtAuthSetterVerifier{
 		BaseConfig: baseCfg,
 		key:        cfg.JwtKey,
-		token:      cfg.JwtToken,
+	}
+}
+
+func NewClientJwtAuth(baseCfg BaseConfig, cfg ClientJwtConfig) *JwtAuthSetterVerifier {
+	return &JwtAuthSetterVerifier{
+		BaseConfig: baseCfg,
+		token:      cfg.Token,
 	}
 }
 
