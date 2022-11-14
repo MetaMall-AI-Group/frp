@@ -12,7 +12,7 @@ type ServerJwtConfig struct {
 }
 
 type ClientJwtConfig struct {
-	JwtToken string `ini:"token" json:"token"`
+	JwtToken string `ini:"jwt_token" json:"jwt_token"`
 }
 
 func getDefaultClientJwtConf() ClientJwtConfig {
