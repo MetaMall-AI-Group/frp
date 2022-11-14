@@ -12,12 +12,12 @@ type ServerJwtConfig struct {
 }
 
 type ClientJwtConfig struct {
-	Token string `ini:"token" json:"token"`
+	JwtToken string `ini:"token" json:"token"`
 }
 
 func getDefaultClientJwtConf() ClientJwtConfig {
 	return ClientJwtConfig{
-		Token: "",
+		JwtToken: "",
 	}
 }
 
@@ -44,7 +44,7 @@ func NewServerJwtAuth(baseCfg BaseConfig, cfg ServerJwtConfig) *JwtAuthSetterVer
 func NewClientJwtAuth(baseCfg BaseConfig, cfg ClientJwtConfig) *JwtAuthSetterVerifier {
 	return &JwtAuthSetterVerifier{
 		BaseConfig: baseCfg,
-		token:      cfg.Token,
+		token:      cfg.JwtToken,
 	}
 }
 
